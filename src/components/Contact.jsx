@@ -1,9 +1,14 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter, Send } from "lucide-react";
+import { Mail, Github, Linkedin, Twitter, Send, Loader2 } from "lucide-react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { socialLinks } from "../utils/mockData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE_ID = "service_6k86bbn";
+const EMAILJS_TEMPLATE_ID = "template_molq4nn";
+const EMAILJS_PUBLIC_KEY = "FXr4y7uVb_PHOMwCY";
 
 const iconMap = {
   Github,
@@ -19,6 +24,27 @@ const Contact = () => {
     email: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const COOLDOWN_SECONDS = 60;
+  const COOLDOWN_KEY = "contact_last_sent";
+
+  const getRemainingCooldown = () => {
+    const lastSent = parseInt(localStorage.getItem(COOLDOWN_KEY) || "0", 10);
+    const elapsed = Math.floor((Date.now() - lastSent) / 1000);
+    return Math.max(0, COOLDOWN_SECONDS - elapsed);
+  };
+
+  const [cooldown, setCooldown] = useState(getRemainingCooldown);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const interval = setInterval(() => {
+      const remaining = getRemainingCooldown();
+      setCooldown(remaining);
+      if (remaining <= 0) clearInterval(interval);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [cooldown]);
 
   const handleChange = (e) => {
     setFormData({
@@ -27,22 +53,49 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back to you soon.", {
-      style: {
-        background: "#0f1a0f",
-        color: "#66ff00",
-        border: "1px solid rgba(102, 255, 0, 0.3)",
-        fontWeight: 600,
-      },
-      iconTheme: {
-        primary: "#66ff00",
-        secondary: "#0f1a0f",
-      },
-      duration: 4000,
-    });
-    setFormData({ name: "", email: "", message: "" });
+    if (cooldown > 0) return;
+    setLoading(true);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          title: "Portfolio Contact",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      localStorage.setItem(COOLDOWN_KEY, Date.now().toString());
+      setCooldown(COOLDOWN_SECONDS);
+      toast.success("Message sent! I'll get back to you soon.", {
+        style: {
+          background: "#0f1a0f",
+          color: "#66ff00",
+          border: "1px solid rgba(102, 255, 0, 0.3)",
+          fontWeight: 600,
+        },
+        iconTheme: { primary: "#66ff00", secondary: "#0f1a0f" },
+        duration: 4000,
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      toast.error("Failed to send. Please try again or email me directly.", {
+        style: {
+          background: "#1a0f0f",
+          color: "#ff4444",
+          border: "1px solid rgba(255, 68, 68, 0.3)",
+          fontWeight: 600,
+        },
+        duration: 4000,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -135,10 +188,29 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="group w-full px-8 py-4 bg-primary text-dark font-semibold rounded-lg transition-all duration-300 hover:bg-primary-dark hover:glow-primary-lg flex items-center justify-center gap-2"
+                disabled={loading || cooldown > 0}
+                className={`group w-full px-8 py-4 font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:cursor-not-allowed ${
+                  cooldown > 0
+                    ? "bg-gray-600 text-gray-400 opacity-70"
+                    : "bg-primary text-dark hover:bg-primary-dark hover:glow-primary-lg"
+                }`}
               >
-                Send Message
-                <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                {loading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : cooldown > 0 ? (
+                  <>
+                    <Loader2 className="w-5 h-5" />
+                    Wait {cooldown}s before sending again
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </>
+                )}
               </button>
             </form>
           </motion.div>
