@@ -1,5 +1,5 @@
-# Exclude projects folder
-projects/
+# Exclude root-level projects folder only (not public/projects/)
+/projects/
 
 # Dependencies
 node_modules/
