@@ -225,15 +225,14 @@ const Hero = () => {
               transform: "translateZ(25px)",
             }}
           >
-            CS student who got tired of storing API keys in Notepad — so I built{" "}
+            I build full-stack web apps with the{" "}
             <span
               className="text-primary font-semibold"
               style={{ textShadow: "0 0 10px rgba(102, 255, 0, 0.5)" }}
             >
-              Vault-X
+              MERN stack
             </span>
-            . I build full-stack apps with the MERN stack and ship things that
-            actually work.
+            {" "}— turning complex problems into clean, scalable solutions. I care about solid architecture, smooth UX, and shipping things that actually hold up.
           </motion.p>
 
           {/* CTA Buttons with 3D hover effects */}
@@ -303,8 +302,8 @@ const Hero = () => {
 
             {/* Resume Download Button */}
             <motion.a
-              href="/Kaizz_Bautista_Resume.pdf"
-              download
+              href="/resume.pdf"
+              download="Kaizz_Bautista_Resume.pdf"
               className="group flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white/30 text-white/70 font-semibold rounded-lg hover:border-primary/60 hover:text-primary transition-all duration-300 w-full sm:w-auto"
               whileHover={{
                 scale: 1.05,
