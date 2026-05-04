@@ -1,0 +1,29 @@
+.footer {
+  width: 100%; /* Make it span across the screen */
+  background-color: #1b5e20;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 0.9rem;
+  margin-top: 40px;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.social-links {
+  margin-top: 8px;
+}
+
+.social-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #a5d6a7; /* Light green */
+}
