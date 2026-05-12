@@ -1,4 +1,5 @@
-import { ArrowUp, Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUp, Github, Linkedin, Mail, Twitter, Heart } from "lucide-react";
 
 function Footer() {
   const scrollToTop = () => {
@@ -21,54 +22,81 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-dark-lighter border-t border-primary/20 py-8 px-6">
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Copyright */}
-          <p className="text-gray-secondary text-center md:text-left">
-            © {new Date().getFullYear()}{" "}
-            <span className="text-primary font-semibold">My Portfolio</span>.
-            All rights reserved.
-          </p>
+    <footer className="relative py-20 bg-dark overflow-hidden">
+      {/* Decorative Line */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+        <div className="flex flex-col items-center gap-12">
+          {/* Logo / Name */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center gap-4"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shadow-[0_0_20px_rgba(102,255,0,0.3)]">
+                <span className="text-dark font-black text-2xl">K</span>
+            </div>
+            <h2 className="text-2xl font-bold tracking-tight text-white uppercase">Bautista<span className="text-primary">.</span></h2>
+          </motion.div>
+
+          {/* Navigation Links (Simplified for footer) */}
+          <nav className="flex flex-wrap justify-center gap-8 text-sm font-bold uppercase tracking-widest text-gray-500">
+            {["Home", "About", "Projects", "Skills", "Contact"].map((item) => (
+              <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`} 
+                className="hover:text-primary transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
 
           {/* Social Links */}
           <div className="flex items-center gap-4">
-            {socialLinks.map(({ Icon, href, label }) => (
-              <a
+            {socialLinks.map(({ Icon, href, label }, i) => (
+              <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-dark-card border border-primary/30 rounded-lg text-gray-light hover:text-primary hover:border-primary transition-all duration-300 hover:scale-110"
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -5, backgroundColor: "rgba(102,255,0,0.1)", borderColor: "rgba(102,255,0,0.5)" }}
+                className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-primary transition-all duration-300"
                 aria-label={label}
               >
                 <Icon size={20} />
-              </a>
+              </motion.a>
             ))}
           </div>
 
-          {/* Back to Top Button */}
-          <button
-            onClick={scrollToTop}
-            className="p-2 bg-primary text-dark rounded-lg hover:bg-primary-dark transition-all duration-300 hover:scale-110 group"
-            aria-label="Back to top"
-          >
-            <ArrowUp
-              size={20}
-              className="group-hover:-translate-y-1 transition-transform duration-300"
-            />
-          </button>
-        </div>
+          {/* Bottom Bar */}
+          <div className="w-full pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-gray-500 text-sm flex items-center gap-2">
+              © {new Date().getFullYear()} Designed & Built with <Heart size={14} className="text-primary animate-pulse" /> by <span className="text-white font-bold">Kaizz Bautista</span>
+            </p>
 
-        {/* Additional Info */}
-        <div className="mt-6 pt-6 border-t border-primary/10 text-center">
-          <p className="text-gray-secondary text-sm">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Vite</span>, and{" "}
-            <span className="text-primary">Tailwind CSS</span>
-          </p>
+            {/* Back to Top */}
+            <motion.button
+              onClick={scrollToTop}
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white/60 hover:text-primary hover:border-primary/50 transition-all duration-300"
+            >
+              <span className="text-xs font-black uppercase tracking-widest">Back to top</span>
+              <ArrowUp size={16} />
+            </motion.button>
+          </div>
         </div>
       </div>
+
+      {/* Background Orbs */}
+      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
     </footer>
   );
 }

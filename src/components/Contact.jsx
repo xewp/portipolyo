@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter, Send, Loader2 } from "lucide-react";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Github, Linkedin, Twitter, Send, Loader2, MapPin, Phone } from "lucide-react";
 import { socialLinks } from "../utils/mockData";
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
+import ScrollReveal, { staggerContainer } from "./ScrollReveal";
 
 const EMAILJS_SERVICE_ID = "service_6k86bbn";
 const EMAILJS_TEMPLATE_ID = "template_molq4nn";
@@ -18,7 +18,6 @@ const iconMap = {
 };
 
 const Contact = () => {
-  const [ref, isVisible] = useScrollReveal(0.2);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -76,6 +75,7 @@ const Contact = () => {
           background: "#0f1a0f",
           color: "#66ff00",
           border: "1px solid rgba(102, 255, 0, 0.3)",
+          borderRadius: "1rem",
           fontWeight: 600,
         },
         iconTheme: { primary: "#66ff00", secondary: "#0f1a0f" },
@@ -89,6 +89,7 @@ const Contact = () => {
           background: "#1a0f0f",
           color: "#ff4444",
           border: "1px solid rgba(255, 68, 68, 0.3)",
+          borderRadius: "1rem",
           fontWeight: 600,
         },
         duration: 4000,
@@ -99,178 +100,172 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" ref={ref} className="min-h-screen py-20 px-6 bg-dark">
+    <section id="contact" className="relative py-32 bg-dark overflow-hidden">
       <Toaster position="top-right" />
-      <div className="container mx-auto max-w-6xl">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
-        >
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="flex-1 h-[2px] bg-gradient-to-l from-primary to-transparent"></div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Get In <span className="text-primary">Touch</span>
-            </h2>
-            <div className="flex-1 h-[2px] bg-gradient-to-r from-primary to-transparent"></div>
-          </div>
-          <p className="text-gray-secondary text-lg max-w-2xl mx-auto">
-            Have a project in mind or just want to chat? Feel free to reach out!
-          </p>
-        </motion.div>
+      
+      {/* Cinematic Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary/10 to-transparent" />
+        <div className="absolute top-[20%] right-[10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px]" />
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
+      <div className="container mx-auto px-6 relative z-10">
+        <ScrollReveal className="w-full mb-20 text-center">
+          <h2 className="text-sm uppercase tracking-[0.4em] text-primary font-bold mb-4">Contact</h2>
+          <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+            Get In <span className="text-gradient">Touch</span>
+          </h3>
+          <p className="text-gray-400 mt-6 max-w-xl mx-auto">
+            Ready to start a conversation? Whether you have a project in mind or just want to connect, I'm just a message away.
+          </p>
+        </ScrollReveal>
+
+        <div className="grid lg:grid-cols-2 gap-20 items-start">
+          {/* Info Side */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="space-y-12"
+          >
+            <div className="space-y-8">
+               <motion.div 
+                variants={{
+                  hidden: { opacity: 0, x: -30 },
+                  visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+                }}
+                className="flex items-start gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-white/10 transition-colors"
+               >
+                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                   <Mail className="w-6 h-6" />
+                 </div>
+                 <div>
+                   <h4 className="text-white font-bold mb-1">Email Me</h4>
+                   <p className="text-gray-400 text-sm mb-2">For inquiries and collaborations</p>
+                   <a href="mailto:zziakbautista@gmail.com" className="text-primary font-bold hover:underline">zziakbautista@gmail.com</a>
+                 </div>
+               </motion.div>
+
+               <motion.div 
+                variants={{
+                  hidden: { opacity: 0, x: -30 },
+                  visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.1 } }
+                }}
+                className="flex items-start gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-white/10 transition-colors"
+               >
+                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                   <MapPin className="w-6 h-6" />
+                 </div>
+                 <div>
+                   <h4 className="text-white font-bold mb-1">Location</h4>
+                   <p className="text-gray-400 text-sm">Philippines (GMT+8)</p>
+                   <p className="text-primary font-bold">Open to remote work worldwide</p>
+                 </div>
+               </motion.div>
+            </div>
+
+            <div className="space-y-6">
+              <h4 className="text-white font-black text-xl tracking-tight">Social Networks</h4>
+              <div className="flex flex-wrap gap-4">
+                {socialLinks.map((social, i) => {
+                  const Icon = iconMap[social.icon];
+                  return (
+                    <motion.a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variants={{
+                        hidden: { opacity: 0, scale: 0.5 },
+                        visible: { opacity: 1, scale: 1, transition: { delay: i * 0.1 } }
+                      }}
+                      whileHover={{ y: -5, backgroundColor: "rgba(102, 255, 0, 0.1)", borderColor: "rgba(102, 255, 0, 0.5)" }}
+                      className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-primary transition-all duration-300"
+                    >
+                      <Icon className="w-6 h-6" />
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Form Side */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-2xl relative"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-gray-light font-medium mb-2"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-card border border-primary/30 rounded-lg text-white placeholder-gray-secondary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300"
-                  placeholder="Kaizz Bautista"
-                />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-gray-500 ml-2">Your Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="John Doe"
+                    className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-primary/50 transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-gray-500 ml-2">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="john@example.com"
+                    className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-primary/50 transition-all"
+                  />
+                </div>
               </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-gray-light font-medium mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-card border border-primary/30 rounded-lg text-white placeholder-gray-secondary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300"
-                  placeholder="zziakbautista@gmail.com"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-gray-light font-medium mb-2"
-                >
-                  Message
-                </label>
+              
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase tracking-widest text-gray-500 ml-2">Your Message</label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows="5"
-                  className="w-full px-4 py-3 bg-dark-card border border-primary/30 rounded-lg text-white placeholder-gray-secondary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 resize-none"
                   placeholder="Tell me about your project..."
-                ></textarea>
+                  className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-primary/50 transition-all resize-none"
+                />
               </div>
 
-              <button
+              <motion.button
                 type="submit"
                 disabled={loading || cooldown > 0}
-                className={`group w-full px-8 py-4 font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:cursor-not-allowed ${
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`group w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 ${
                   cooldown > 0
-                    ? "bg-gray-600 text-gray-400 opacity-70"
-                    : "bg-primary text-dark hover:bg-primary-dark hover:glow-primary-lg"
+                    ? "bg-white/10 text-white/30 cursor-not-allowed"
+                    : "bg-primary text-dark shadow-[0_0_40px_rgba(102,255,0,0.2)] hover:shadow-[0_0_60px_rgba(102,255,0,0.4)]"
                 }`}
               >
                 {loading ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    Sending...
+                    <span>Processing...</span>
                   </>
                 ) : cooldown > 0 ? (
-                  <>
-                    <Loader2 className="w-5 h-5" />
-                    Wait {cooldown}s before sending again
-                  </>
+                  <span>Wait {cooldown}s</span>
                 ) : (
                   <>
-                    Send Message
-                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <span>Send Message</span>
+                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
-          </motion.div>
-
-          {/* Social Links & Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col justify-center space-y-8"
-          >
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Let's Connect
-              </h3>
-              <p className="text-gray-secondary leading-relaxed">
-                I'm always open to discussing new projects, creative ideas, or
-                opportunities to be part of your vision. Connect with me on
-                social media or drop me an email.
-              </p>
-            </div>
-
-            {/* Social Media Links */}
-            <div className="space-y-4">
-              <h4 className="text-xl font-semibold text-primary">
-                Find me on:
-              </h4>
-              <div className="flex flex-wrap gap-4">
-                {socialLinks.map((social) => {
-                  const Icon = iconMap[social.icon];
-                  return (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-2 px-4 py-2 bg-dark-card border border-primary/30 rounded-lg text-gray-light hover:text-primary hover:border-primary transition-all duration-300 hover:scale-105"
-                      aria-label={social.name}
-                    >
-                      <Icon className="w-5 h-5" />
-                      <span className="font-medium">{social.name}</span>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="p-6 bg-dark-card border border-primary/30 rounded-xl">
-              <div className="flex items-center gap-3 mb-2">
-                <Mail className="w-6 h-6 text-primary" />
-                <h4 className="text-xl font-semibold text-white">Email</h4>
-              </div>
-              <a
-                href="mailto:zziakbautista@gmail.com"
-                className="text-gray-light hover:text-primary transition-colors duration-300"
-              >
-                zziakbautista@gmail.com
-              </a>
-            </div>
           </motion.div>
         </div>
       </div>
