@@ -27,7 +27,7 @@ function Footer() {
           {/* Copyright */}
           <p className="text-gray-secondary text-center md:text-left">
             © {new Date().getFullYear()}{" "}
-            <span className="text-primary font-semibold">My Portfolio</span>.
+            <span className="text-primary font-semibold">Kaizz Bautista</span>.
             All rights reserved.
           </p>
 

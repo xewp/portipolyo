@@ -225,14 +225,14 @@ const Hero = () => {
               transform: "translateZ(25px)",
             }}
           >
-            I build full-stack web apps with the{" "}
+            I ship{" "}
             <span
               className="text-primary font-semibold"
               style={{ textShadow: "0 0 10px rgba(102, 255, 0, 0.5)" }}
             >
               MERN stack
             </span>
-            {" "}— turning complex problems into clean, scalable solutions. I care about solid architecture, smooth UX, and shipping things that actually hold up.
+            {" "}apps — from encrypted secret managers to booking platforms. If it needs auth, real-time data, or a clean UI, I've probably built it at 2 AM.
           </motion.p>
 
           {/* CTA Buttons with 3D hover effects */}

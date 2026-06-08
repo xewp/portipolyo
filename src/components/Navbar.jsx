@@ -61,10 +61,9 @@ function Navbar() {
           <a
             href="#home"
             onClick={(e) => handleClick(e, "#home")}
-            className="text-2xl font-bold tracking-tight"
+            className="flex items-center"
           >
-            <span className="text-primary" style={{ textShadow: "0 0 15px rgba(102, 255, 0, 0.5)" }}>KB</span>
-            <span className="text-white opacity-60">.</span>
+            <img src="/logo.png" alt="KB Logo" className="h-16 w-16 rounded-lg" />
           </a>
 
           {/* Desktop Navigation */}

@@ -1,37 +1,65 @@
 import { motion } from "framer-motion";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { skillsData } from "../utils/mockData";
-import { useEffect, useState } from "react";
 
-const SkillBar = ({ skill, index, isVisible }) => {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    if (isVisible) {
-      const timer = setTimeout(() => {
-        setWidth(skill.level);
-      }, index * 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, skill.level, index]);
-
+const SkillBadge = ({ skill, index, isVisible }) => {
   return (
-    <div className="space-y-2">
-      <div className="flex justify-between items-center">
-        <span className="text-gray-light font-medium">{skill.name}</span>
-        <span className="text-primary font-semibold">{skill.level}%</span>
+    <motion.div
+      initial={{ opacity: 0, scale: 0, rotate: -15 }}
+      animate={
+        isVisible
+          ? {
+              opacity: 1,
+              scale: 1,
+              rotate: 0,
+              transition: {
+                type: "spring",
+                damping: 15,
+                stiffness: 200,
+                delay: index * 0.06,
+              },
+            }
+          : {}
+      }
+      whileHover={{
+        scale: 1.1,
+        y: -4,
+        transition: { type: "spring", damping: 15, stiffness: 300 },
+      }}
+      whileTap={{ scale: 0.95 }}
+      className="group relative flex items-center gap-3 px-5 py-3 bg-dark border border-primary/20 rounded-xl cursor-default hover:border-primary/60 transition-colors duration-300"
+    >
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 rounded-xl bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300" />
+
+      <span className="text-xl relative z-10">{skill.icon}</span>
+      <span className="text-gray-light font-medium relative z-10 group-hover:text-white transition-colors duration-300">
+        {skill.name}
+      </span>
+    </motion.div>
+  );
+};
+
+const SkillCategory = ({ title, skills, isVisible, delay }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay }}
+      className="bg-dark-card border border-primary/20 rounded-xl p-6 hover:border-primary/40 transition-colors duration-300"
+    >
+      <h3 className="text-2xl font-bold text-primary mb-6">{title}</h3>
+      <div className="flex flex-wrap gap-3">
+        {skills.map((skill, index) => (
+          <SkillBadge
+            key={skill.name}
+            skill={skill}
+            index={index}
+            isVisible={isVisible}
+          />
+        ))}
       </div>
-      <div className="h-3 bg-dark-card rounded-full overflow-hidden border border-primary/20">
-        <motion.div
-          className="h-full bg-gradient-to-r from-primary to-green-400 rounded-full relative"
-          initial={{ width: 0 }}
-          animate={{ width: `${width}%` }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
-        </motion.div>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -65,67 +93,24 @@ const Skills = () => {
 
         {/* Skills Categories */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Frontend Skills */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-dark-card border border-primary/20 rounded-xl p-6 hover:border-primary transition-colors duration-300"
-          >
-            <h3 className="text-2xl font-bold text-primary mb-6">Frontend</h3>
-            <div className="space-y-4">
-              {skillsData.frontend.map((skill, index) => (
-                <SkillBar
-                  key={skill.name}
-                  skill={skill}
-                  index={index}
-                  isVisible={isVisible}
-                />
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Backend Skills */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-dark-card border border-primary/20 rounded-xl p-6 hover:border-primary transition-colors duration-300"
-          >
-            <h3 className="text-2xl font-bold text-primary mb-6">Backend</h3>
-            <div className="space-y-4">
-              {skillsData.backend.map((skill, index) => (
-                <SkillBar
-                  key={skill.name}
-                  skill={skill}
-                  index={index}
-                  isVisible={isVisible}
-                />
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Tools & Others */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-dark-card border border-primary/20 rounded-xl p-6 hover:border-primary transition-colors duration-300"
-          >
-            <h3 className="text-2xl font-bold text-primary mb-6">
-              Tools & Others
-            </h3>
-            <div className="space-y-4">
-              {skillsData.tools.map((skill, index) => (
-                <SkillBar
-                  key={skill.name}
-                  skill={skill}
-                  index={index}
-                  isVisible={isVisible}
-                />
-              ))}
-            </div>
-          </motion.div>
+          <SkillCategory
+            title="Frontend"
+            skills={skillsData.frontend}
+            isVisible={isVisible}
+            delay={0.2}
+          />
+          <SkillCategory
+            title="Backend"
+            skills={skillsData.backend}
+            isVisible={isVisible}
+            delay={0.3}
+          />
+          <SkillCategory
+            title="Tools & Others"
+            skills={skillsData.tools}
+            isVisible={isVisible}
+            delay={0.4}
+          />
         </div>
       </div>
     </section>
