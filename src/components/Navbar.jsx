@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Sun, Moon, Monitor, X, Menu } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -9,8 +9,8 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+function Navbar({ theme }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
@@ -18,20 +18,16 @@ function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Determine active section
-      const sections = navLinks.map((link) => link.href.substring(1));
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+      const sections = navLinks.map((l) => l.href.substring(1));
+      const current = sections.find((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          return rect.top <= 120 && rect.bottom >= 120;
         }
         return false;
       });
-
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
+      if (current) setActiveSection(current);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -40,102 +36,151 @@ function Navbar() {
 
   const handleClick = (e, href) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    setMobileOpen(false);
   };
 
-  return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+  const themeIcon = {
+    light: <Sun size={14} />,
+    dark: <Moon size={14} />,
+    system: <Monitor size={14} />,
+  };
+
+  /* ── Sidebar (≥1024px) ────────────────────────────────── */
+  const sidebar = (
+    <aside className="hidden lg:flex fixed top-0 left-0 bottom-0 w-[14rem] flex-col justify-between border-r border-gray-200 bg-background/95 backdrop-blur-sm z-50 px-5 py-8 transition-colors duration-500">
+      {/* Logo / Name */}
+      <div>
+        <a
+          href="#home"
+          onClick={(e) => handleClick(e, "#home")}
+          className="block font-pixel text-lg lowercase tracking-tight text-ink no-underline mb-10"
+        >
+          kaizz
+        </a>
+
+        {/* Nav links */}
+        <nav aria-label="Main navigation">
+          <ul className="space-y-1">
+            {navLinks.map((link) => {
+              const id = link.href.substring(1);
+              const active = activeSection === id;
+              return (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleClick(e, link.href)}
+                    className={`flex items-center gap-2 py-2 px-2 rounded-input font-mono text-ui-small uppercase tracking-wider no-underline transition-colors duration-200 ${
+                      active
+                        ? "text-ink font-medium"
+                        : "text-gray-400 hover:text-ink"
+                    }`}
+                  >
+                    <span
+                      className={`text-xs transition-opacity duration-200 ${
+                        active ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      →
+                    </span>
+                    {link.name}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+
+      {/* Theme toggle */}
+      <div className="border-t border-gray-200 pt-5">
+        <button
+          onClick={theme.cycle}
+          className="flex items-center gap-2 font-mono text-micro uppercase tracking-wider text-gray-400 hover:text-ink transition-colors duration-200"
+          aria-label="Toggle theme"
+        >
+          {themeIcon[theme.preference]}
+          <span>{theme.preference}</span>
+        </button>
+      </div>
+    </aside>
+  );
+
+  /* ── Top bar (<1024px) ────────────────────────────────── */
+  const topbar = (
+    <header
+      className={`lg:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-dark/95 backdrop-blur-md shadow-lg border-b border-primary/20"
+          ? "bg-background/90 backdrop-blur-md border-b border-gray-200"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => handleClick(e, "#home")}
-            className="flex items-center"
-          >
-            <img src="/logo.png" alt="KB Logo" className="h-16 w-16 rounded-lg" />
-          </a>
+      <div className="flex items-center justify-between px-4 py-3">
+        <a
+          href="#home"
+          onClick={(e) => handleClick(e, "#home")}
+          className="font-pixel text-lg lowercase tracking-tight text-ink no-underline"
+        >
+          kaizz
+        </a>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => {
-              const sectionId = link.href.substring(1);
-              const isActive = activeSection === sectionId;
-
-              return (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleClick(e, link.href)}
-                    className={`text-lg font-medium transition-colors duration-300 relative group ${
-                      isActive
-                        ? "text-primary"
-                        : "text-gray-light hover:text-primary"
-                    }`}
-                  >
-                    {link.name}
-                    <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
-                    ></span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Mobile Menu Button */}
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-primary hover:text-primary-dark transition-colors duration-300"
+            onClick={theme.cycle}
+            className="p-2 text-gray-400 hover:text-ink transition-colors duration-200"
+            aria-label="Toggle theme"
+          >
+            {themeIcon[theme.preference]}
+          </button>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 text-ink"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            isOpen ? "max-h-96 mt-4" : "max-h-0"
-          }`}
-        >
-          <ul className="flex flex-col gap-4 py-4 border-t border-primary/20">
+      {/* Mobile overlay */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-bryl ${
+          mobileOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="px-4 pb-6 pt-2 bg-background border-t border-gray-200">
+          <ul className="space-y-1">
             {navLinks.map((link) => {
-              const sectionId = link.href.substring(1);
-              const isActive = activeSection === sectionId;
-
+              const id = link.href.substring(1);
+              const active = activeSection === id;
               return (
                 <li key={link.name}>
                   <a
                     href={link.href}
                     onClick={(e) => handleClick(e, link.href)}
-                    className={`block text-lg font-medium transition-colors duration-300 ${
-                      isActive
-                        ? "text-primary"
-                        : "text-gray-light hover:text-primary"
+                    className={`block py-2.5 px-3 font-mono text-ui-small uppercase tracking-wider no-underline rounded-input transition-colors duration-200 ${
+                      active
+                        ? "text-ink font-medium bg-gray-50"
+                        : "text-gray-400 hover:text-ink"
                     }`}
                   >
+                    {active && <span className="mr-2">→</span>}
                     {link.name}
                   </a>
                 </li>
               );
             })}
           </ul>
-        </div>
+        </nav>
       </div>
-    </nav>
+    </header>
+  );
+
+  return (
+    <>
+      {sidebar}
+      {topbar}
+    </>
   );
 }
 

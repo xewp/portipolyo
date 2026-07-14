@@ -1,49 +1,190 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+/* ── Fonts ───────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Light theme (default) ───────────────────────────────── */
+:root {
+  --background: 255 255 255;   /* #ffffff */
+  --ink:        10  10  10;    /* #0a0a0a */
 
+  --gray-50:  250 250 250;     /* #fafafa */
+  --gray-100: 245 245 245;     /* #f5f5f5 */
+  --gray-200: 233 233 233;     /* #e9e9e9 */
+  --gray-300: 212 212 212;     /* #d4d4d4 */
+  --gray-400: 163 163 163;     /* #a3a3a3 */
+  --gray-500: 115 115 115;     /* #737373 */
+  --gray-600:  82  82  82;
+  --gray-700:  64  64  64;
+  --gray-800:  38  38  38;
+  --gray-900:  23  23  23;
 
+  --halftone-dot: rgba(10, 10, 10, 0.9);
+
+  color-scheme: light dark;
+}
+
+/* ── Dark theme ──────────────────────────────────────────── */
+.dark {
+  --background: 12  12  15;    /* #0c0c0f */
+  --ink:        244 244 245;   /* #f4f4f5 */
+
+  --gray-50:  24  24  27;      /* #18181b */
+  --gray-100: 30  30  34;      /* #1e1e22 */
+  --gray-200: 42  42  48;      /* #2a2a30 */
+  --gray-300: 58  58  66;      /* #3a3a42 */
+  --gray-400: 138 138 146;     /* #8a8a92 */
+  --gray-500: 160 160 168;     /* #a0a0a8 */
+  --gray-600: 180 180 188;
+  --gray-700: 200 200 206;
+  --gray-800: 220 220 224;
+  --gray-900: 235 235 238;
+
+  --halftone-dot: rgba(244, 244, 245, 0.42);
+}
+
+/* ── Geist Pixel (Square) via jsDelivr CDN ───────────────── */
+@font-face {
+  font-family: 'Geist Pixel';
+  src: url('https://cdn.jsdelivr.net/npm/geist@latest/dist/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Base resets ─────────────────────────────────────────── */
 @layer base {
   * {
     @apply scroll-smooth;
   }
 
-  body {
-    @apply bg-dark text-gray-light antialiased;
+  html {
+    font-size: 15px;
   }
 
-  /* Custom scrollbar */
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--ink));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Geist', system-ui, sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  /* Selection inversion */
+  ::selection {
+    background: rgb(var(--ink));
+    color: rgb(var(--background));
+  }
+
+  /* Slim scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-dark-lighter;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary rounded-full;
+    background: rgb(var(--gray-300));
+    border-radius: 9999px;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-dark;
+  /* Links: subtle underline */
+  a {
+    text-decoration-color: rgb(var(--ink) / 0.25);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s, color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: rgb(var(--ink) / 1);
   }
 }
 
+/* ── Utility classes ─────────────────────────────────────── */
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-green-400;
+  /* Halftone dot patterns */
+  .halftone {
+    background-image: radial-gradient(var(--halftone-dot) 1px, transparent 1px);
+    background-size: 9px 9px;
   }
-  
-  .glow-primary {
-    box-shadow: 0 0 20px rgba(102, 255, 0, 0.4);
+
+  .halftone-dense {
+    background-image: radial-gradient(var(--halftone-dot) 1px, transparent 1px);
+    background-size: 6px 6px;
   }
-  
-  .glow-primary-lg {
-    box-shadow: 0 0 40px rgba(102, 255, 0, 0.5);
+
+  /* Micro-label styling (mono, uppercase, wide-tracked) */
+  .micro-label {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.6875rem; /* ~11px */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgb(var(--gray-400));
+  }
+
+  /* Section number labels in pixel font */
+  .section-label {
+    font-family: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    color: rgb(var(--gray-400));
+    text-transform: lowercase;
+  }
+
+  /* Inverted chip — the one "loud" element per page */
+  .chip-inverted {
+    background: rgb(var(--ink));
+    color: rgb(var(--background));
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.5625rem; /* 9px */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Tag/pill */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    border: 1px solid rgb(var(--gray-300));
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.5625rem; /* 9px */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgb(var(--gray-500));
+  }
+
+  /* Card shadow (bryl-minimal spec: large blur, negative spread, low alpha) */
+  .shadow-card {
+    box-shadow: 0 8px 22px -14px rgba(0, 0, 0, 0.25);
+  }
+
+  .shadow-card-hover {
+    box-shadow: 0 18px 36px -20px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Dark mode: shadows nearly disappear */
+  .dark .shadow-card {
+    box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.15);
+  }
+
+  .dark .shadow-card-hover {
+    box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.2);
   }
 }
 
+/* ── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

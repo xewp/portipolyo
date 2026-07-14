@@ -21,51 +21,47 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-dark-lighter border-t border-primary/20 py-8 px-6">
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+    <footer className="border-t border-gray-200 py-8 px-4 sm:px-6">
+      <div className="max-w-wide mx-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
           {/* Copyright */}
-          <p className="text-gray-secondary text-center md:text-left">
-            © {new Date().getFullYear()}{" "}
-            <span className="text-primary font-semibold">Kaizz Bautista</span>.
-            All rights reserved.
+          <p className="font-mono text-micro text-gray-400 uppercase tracking-wider text-center sm:text-left">
+            © {new Date().getFullYear()} Kaizz Bautista
           </p>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
+          {/* Social links */}
+          <div className="flex items-center gap-3">
             {socialLinks.map(({ Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-dark-card border border-primary/30 rounded-lg text-gray-light hover:text-primary hover:border-primary transition-all duration-300 hover:scale-110"
+                className="p-2 text-gray-400 hover:text-ink transition-colors duration-200 no-underline"
                 aria-label={label}
               >
-                <Icon size={20} />
+                <Icon size={16} />
               </a>
             ))}
           </div>
 
-          {/* Back to Top Button */}
+          {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className="p-2 bg-primary text-dark rounded-lg hover:bg-primary-dark transition-all duration-300 hover:scale-110 group"
+            className="group p-2 border border-gray-200 rounded-input text-gray-400 hover:text-ink hover:border-gray-400 transition-all duration-200"
             aria-label="Back to top"
           >
             <ArrowUp
-              size={20}
-              className="group-hover:-translate-y-1 transition-transform duration-300"
+              size={14}
+              className="group-hover:-translate-y-0.5 transition-transform duration-200"
             />
           </button>
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-6 pt-6 border-t border-primary/10 text-center">
-          <p className="text-gray-secondary text-sm">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Vite</span>, and{" "}
-            <span className="text-primary">Tailwind CSS</span>
+        {/* Built-with note */}
+        <div className="mt-6 pt-5 border-t border-gray-200 text-center">
+          <p className="font-mono text-micro-xs text-gray-400 uppercase tracking-wider">
+            Built with React · Vite · Tailwind CSS
           </p>
         </div>
       </div>

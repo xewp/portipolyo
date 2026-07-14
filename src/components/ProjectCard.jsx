@@ -1,73 +1,89 @@
-import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 
-const ProjectCard = ({ project, index }) => {
+/**
+ * Glass card for the project deck.
+ * Pure presentational — all animation is handled by the parent.
+ */
+const ProjectCard = ({ project, isActive, index }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative bg-dark-card border border-primary/20 rounded-xl overflow-hidden hover:border-primary transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20"
+    <div
+      className={`
+        overflow-hidden rounded-[24px] backdrop-blur-xl
+        border transition-all duration-500 ease-bryl
+        ${
+          isActive
+            ? "bg-gray-50/90 dark:bg-gray-100/70 border-gray-200/60 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)]"
+            : "bg-gray-50/70 dark:bg-gray-100/40 border-gray-200/30 shadow-[0_8px_30px_-15px_rgba(0,0,0,0.12)]"
+        }
+      `}
     >
-      {/* Image Container */}
-      <div className="relative h-48 overflow-hidden bg-dark-lighter">
+      {/* ── Image ──────────────────────────────────────── */}
+      <div className="relative overflow-hidden aspect-[16/10]">
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          draggable={false}
+          className={`
+            w-full h-full object-cover
+            transition-all duration-700 ease-bryl
+            ${isActive ? "grayscale-0 scale-100" : "grayscale scale-[1.02]"}
+          `}
         />
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
 
-        {/* Links overlay */}
-        <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-primary text-dark rounded-full hover:scale-110 transition-transform duration-200"
-            aria-label="View GitHub repository"
-          >
-            <Github className="w-5 h-5" />
-          </a>
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-primary text-dark rounded-full hover:scale-110 transition-transform duration-200"
-            aria-label="View live demo"
-          >
-            <ExternalLink className="w-5 h-5" />
-          </a>
+        {/* Gradient vignette */}
+        <div
+          className={`
+            absolute inset-0
+            bg-gradient-to-t from-black/30 via-transparent to-transparent
+            transition-opacity duration-500
+            ${isActive ? "opacity-40" : "opacity-60"}
+          `}
+        />
+
+        {/* Number badge */}
+        <div className="absolute top-4 left-4">
+          <span className="chip-inverted">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6 space-y-4">
-        <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+      {/* ── Content ────────────────────────────────────── */}
+      <div className="p-5 sm:p-6 space-y-3">
+        <h3 className="text-base sm:text-lg font-semibold text-ink tracking-tight leading-tight">
           {project.title}
         </h3>
-        <p className="text-gray-secondary leading-relaxed">
+
+        <p
+          className={`
+            text-ui-small leading-relaxed transition-colors duration-500
+            ${isActive ? "text-gray-500" : "text-gray-400 line-clamp-2"}
+          `}
+        >
           {project.description}
         </p>
 
-        {/* Tech Stack Tags */}
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((tech) => (
+        {/* Tech pills — truncated on non-active cards */}
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {(isActive ? project.tech : project.tech.slice(0, 4)).map((t) => (
             <span
-              key={tech}
-              className="px-3 py-1 text-sm bg-dark border border-primary/30 text-primary rounded-md"
+              key={t}
+              className={`
+                pill transition-all duration-300
+                ${isActive ? "border-gray-300/80" : "border-gray-300/40"}
+              `}
             >
-              {tech}
+              {t}
             </span>
           ))}
+          {!isActive && project.tech.length > 4 && (
+            <span className="pill border-gray-300/40">
+              +{project.tech.length - 4}
+            </span>
+          )}
         </div>
       </div>
-
-      {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full transform translate-x-10 -translate-y-10 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300"></div>
-    </motion.div>
+    </div>
   );
 };
 
