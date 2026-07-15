@@ -1,6 +1,15 @@
 export const projectsData = [
   {
     id: 1,
+    title: "AuraPress",
+    description: "Full-stack AI content engine powered by Gemini. Transforms a single topic into tailored posts for LinkedIn, Twitter threads, and blog outlines simultaneously with select brand voices.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Gemini API", "Tailwind CSS", "Framer Motion", "React Query"],
+    image: "/projects/aurapres.png",
+    github: "https://github.com/xewp/aurapres",
+    live: ""
+  },
+  {
+    id: 2,
     title: "Power Allure",
     description: "Full-stack booking platform with JWT session management, Cloudinary image uploads, real-time booking flow, and an admin dashboard for talent management.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "JWT", "Cloudinary"],
@@ -9,7 +18,7 @@ export const projectsData = [
     live: "https://allure-client.vercel.app"
   },
   {
-    id: 2,
+    id: 3,
     title: "Billings Dashboard",
     description: "Financial dashboard with Recharts visualizations, Leaflet geographical mapping of billing centers, and automated PDF/CSV report generation via jsPDF and PapaParse.",
     tech: ["React", "Supabase", "Recharts", "Leaflet", "Tailwind CSS", "jsPDF", "PapaParse"],
@@ -18,7 +27,7 @@ export const projectsData = [
     live: "https://billing-dashboard-demo.vercel.app"
   },
   {
-    id: 3,
+    id: 4,
     title: "Comfort Cards",
     description: "Digital greeting card app with swipe-based navigation, canvas confetti celebrations, and a mobile-first responsive layout built entirely with Framer Motion.",
     tech: ["React", "Vite", "Framer Motion", "Tailwind CSS", "Canvas-Confetti", "React-Swipeable"],
@@ -27,7 +36,7 @@ export const projectsData = [
     live: "https://comcards.vercel.app"
   },
   {
-    id: 4,
+    id: 5,
     title: "Vault-X",
     description: "MERN secret manager with client-side AES-256 encryption and Web Crypto password generation. Plaintext secrets never touch the backend — all encryption happens in the browser.",
     tech: ["React", "Node.js", "Express", "MongoDB", "AES-256", "Web Crypto API", "CSS Modules", "JWT"],

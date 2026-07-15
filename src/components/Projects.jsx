@@ -52,7 +52,7 @@ const Projects = () => {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w < 640) setCardWidth(Math.min(320, w - 48));
+      if (w < 768) setCardWidth(Math.round(w * 0.9));
       else if (w < 1024) setCardWidth(360);
       else setCardWidth(420);
     };
@@ -114,43 +114,67 @@ const Projects = () => {
 
     const abs = Math.abs(norm);
     const sign = norm > 0 ? 1 : norm < 0 ? -1 : 0;
-    const isMobile = cardWidth < 360;
-    const xMultiplier = isMobile ? 0.6 : 1;
+    const isMobile = window.innerWidth < 768;
 
     let x, y, rotate, scale, opacity;
 
-    switch (abs) {
-      case 0:
-        x = 0;
-        y = 0;
-        rotate = 0;
-        scale = 1;
-        opacity = 1;
-        break;
-      case 1:
-        x = sign * 280 * xMultiplier;
-        y = 15;
-        rotate = sign * 5;
-        scale = 0.9;
-        opacity = 0.7;
-        break;
-      case 2:
-        x = sign * 460 * xMultiplier;
-        y = 25;
-        rotate = sign * 9;
-        scale = 0.8;
-        opacity = 0.35;
-        break;
-      default:
-        x = sign * 550 * xMultiplier;
-        y = 30;
-        rotate = sign * 12;
-        scale = 0.7;
-        opacity = 0;
+    if (isMobile) {
+      switch (abs) {
+        case 0:
+          x = 0;
+          y = 0;
+          rotate = 0;
+          scale = 1;
+          opacity = 1;
+          break;
+        case 1:
+          x = sign * (cardWidth * 0.28);
+          y = 8;
+          rotate = sign * 12; // Rotated ±10-15 degrees
+          scale = 0.9;        // Scaled to about 0.9
+          opacity = 0.6;      // Underneath, peeking out
+          break;
+        default:
+          x = sign * (cardWidth * 0.5);
+          y = 15;
+          rotate = sign * 15;
+          scale = 0.8;
+          opacity = 0;        // Keep other cards hidden
+      }
+    } else {
+      switch (abs) {
+        case 0:
+          x = 0;
+          y = 0;
+          rotate = 0;
+          scale = 1;
+          opacity = 1;
+          break;
+        case 1:
+          x = sign * 280;
+          y = 15;
+          rotate = sign * 5;
+          scale = 0.9;
+          opacity = 0.7;
+          break;
+        case 2:
+          x = sign * 460;
+          y = 25;
+          rotate = sign * 9;
+          scale = 0.8;
+          opacity = 0.35;
+          break;
+        default:
+          x = sign * 550;
+          y = 30;
+          rotate = sign * 12;
+          scale = 0.7;
+          opacity = 0;
+      }
     }
 
-    // Hover adjustments
-    if (hoveredIndex === index && abs <= 2) {
+    // Hover adjustments (only if desktop)
+    if (!isMobile && hoveredIndex === index && abs <= 2) {
       y -= 8;
       scale += 0.03;
       rotate *= 0.6;
@@ -170,7 +194,7 @@ const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="py-24 px-4 sm:px-6 overflow-x-hidden"
+      className="py-24 px-4 sm:px-6 overflow-hidden"
     >
       {/* ── Section Header ─────────────────────────────── */}
       <motion.div

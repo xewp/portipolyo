@@ -1,5 +1,6 @@
 # Exclude root-level projects folder only (not public/projects/)
 /projects/
+/projues/
 
 # Dependencies
 node_modules/

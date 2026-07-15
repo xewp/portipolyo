@@ -26,6 +26,8 @@ export default {
         mono:  ['Geist Mono', 'ui-monospace', 'monospace'],
         serif: ['Source Serif 4', 'Georgia', 'serif'],
         pixel: ['Geist Pixel', 'Geist Mono', 'ui-monospace', 'monospace'],
+        vt323: ['VT323', 'monospace'],
+        ibm:   ['IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
         'page-title': ['3rem', { lineHeight: '1', letterSpacing: '-0.02em' }],

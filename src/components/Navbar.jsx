@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sun, Moon, Monitor, X, Menu } from "lucide-react";
+import { Sun, Moon, Monitor, X, Menu, Bot } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -9,7 +9,7 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-function Navbar({ theme }) {
+function Navbar({ theme, onOpenFakeAI }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -90,6 +90,15 @@ function Navbar({ theme }) {
             })}
           </ul>
         </nav>
+
+        {/* Ask AI easter-egg button */}
+        <button
+          onClick={onOpenFakeAI}
+          className="mt-4 flex items-center gap-2 py-2 px-2 rounded-input font-mono text-ui-small uppercase tracking-wider text-gray-400 hover:text-green-500 transition-colors duration-200 group"
+        >
+          <Bot size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+          Ask AI
+        </button>
       </div>
 
       {/* Theme toggle */}
@@ -171,6 +180,15 @@ function Navbar({ theme }) {
               );
             })}
           </ul>
+
+          {/* Ask AI easter-egg button (mobile) */}
+          <button
+            onClick={() => { onOpenFakeAI?.(); setMobileOpen(false); }}
+            className="mt-3 mx-3 flex items-center gap-2 py-2.5 px-3 rounded-input font-mono text-ui-small uppercase tracking-wider text-gray-400 hover:text-green-500 transition-colors duration-200"
+          >
+            <Bot size={14} />
+            Ask AI
+          </button>
         </nav>
       </div>
     </header>
