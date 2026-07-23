@@ -450,6 +450,7 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
                             if (!msg) return;
                             setUserMsg(msg);
                             setTypingText("");
+                            e.target.blur();
                             setPhase("thinking");
                             const delay = 2000 + Math.random() * 2000;
                             setTimeout(() => {
@@ -458,7 +459,7 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
                             }, delay);
                           }
                         }}
-                        className="fixed inset-0 w-full h-full opacity-0 z-30 cursor-text pointer-events-auto bg-transparent border-none outline-none"
+                        className="fixed inset-0 w-full h-full opacity-[0.01] text-transparent caret-transparent z-30 cursor-text pointer-events-auto bg-transparent border-none outline-none"
                         autoComplete="off"
                         spellCheck="false"
                         aria-label="Type your question"
