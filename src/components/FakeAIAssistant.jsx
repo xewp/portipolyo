@@ -419,6 +419,9 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
           <div
             ref={scrollRef}
             className="relative z-20 h-full overflow-y-auto"
+            onClick={() => {
+              if (phase === "idle") inputRef.current?.focus();
+            }}
           >
             <div className="min-h-full flex items-center px-8 sm:px-14 md:px-20 lg:px-28">
               <div className="w-full max-w-3xl py-20">
@@ -431,39 +434,38 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
                       </h1>
 
                       {/* Visible typing area */}
-                      <div className="mt-4 min-h-[2.5rem]">
+                      <div className="mt-4 min-h-[2.5rem] relative">
                         <span className="font-vt323 text-white/50 text-xl sm:text-2xl tracking-wide">
                           {typingText}
                         </span>
                         <Cursor />
+                        <input
+                          ref={inputRef}
+                          type="text"
+                          autoFocus
+                          value={typingText}
+                          onChange={(e) => setTypingText(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              const msg = typingText.trim();
+                              if (!msg) return;
+                              setUserMsg(msg);
+                              setTypingText("");
+                              e.target.blur();
+                              setPhase("thinking");
+                              const delay = 2000 + Math.random() * 2000;
+                              setTimeout(() => {
+                                if (abortRef.current) return;
+                                setPhase("sequence");
+                              }, delay);
+                            }
+                          }}
+                          className="absolute inset-0 w-full h-full opacity-[0.01] text-transparent caret-transparent z-30 cursor-text pointer-events-auto bg-transparent border-none outline-none"
+                          autoComplete="off"
+                          spellCheck="false"
+                          aria-label="Type your question"
+                        />
                       </div>
-
-                      {/* Completely invisible input covering the whole screen to catch focus/keyboard on mobile/desktop */}
-                      <input
-                        ref={inputRef}
-                        type="text"
-                        value={typingText}
-                        onChange={(e) => setTypingText(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            const msg = typingText.trim();
-                            if (!msg) return;
-                            setUserMsg(msg);
-                            setTypingText("");
-                            e.target.blur();
-                            setPhase("thinking");
-                            const delay = 2000 + Math.random() * 2000;
-                            setTimeout(() => {
-                              if (abortRef.current) return;
-                              setPhase("sequence");
-                            }, delay);
-                          }
-                        }}
-                        className="fixed inset-0 w-full h-full opacity-[0.01] text-transparent caret-transparent z-30 cursor-text pointer-events-auto bg-transparent border-none outline-none"
-                        autoComplete="off"
-                        spellCheck="false"
-                        aria-label="Type your question"
-                      />
                     </motion.div>
                   )}
 

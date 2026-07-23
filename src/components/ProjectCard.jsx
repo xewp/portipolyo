@@ -56,7 +56,7 @@ const ProjectCard = ({ project, isActive, index }) => {
 
         <p
           className={`
-            text-ui-small leading-relaxed transition-colors duration-500
+            text-ui-small leading-relaxed transition-colors duration-500 text-justify
             ${isActive ? "text-gray-500" : "text-gray-400 line-clamp-2"}
           `}
         >

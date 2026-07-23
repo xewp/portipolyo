@@ -1,9 +1,9 @@
 export const projectsData = [
   {
     id: 1,
-    title: "AuraPress",
-    description: "Full-stack AI content engine powered by Gemini. Transforms a single topic into tailored posts for LinkedIn, Twitter threads, and blog outlines simultaneously with select brand voices.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Gemini API", "Tailwind CSS", "Framer Motion", "React Query"],
+    title: "Storyforge AI",
+    description: "Multi-AI content engine powered by Gemini, Groq, Mistral, and OpenRouter. Transforms a single topic into comprehensive research and content packages for faceless YouTube channels instantly.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Multiple LLMs", "Tailwind CSS", "Framer Motion", "React Query"],
     image: "/projects/aurapres.png",
     github: "",
     live: ""

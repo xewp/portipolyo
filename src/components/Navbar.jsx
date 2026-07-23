@@ -133,7 +133,14 @@ function Navbar({ theme, onOpenFakeAI }) {
           kaizz
         </a>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => onOpenFakeAI?.()}
+            className="p-2 text-gray-400 hover:text-green-500 transition-colors duration-200"
+            aria-label="Ask AI"
+          >
+            <Bot size={18} />
+          </button>
           <button
             onClick={theme.cycle}
             className="p-2 text-gray-400 hover:text-ink transition-colors duration-200"
@@ -181,14 +188,7 @@ function Navbar({ theme, onOpenFakeAI }) {
             })}
           </ul>
 
-          {/* Ask AI easter-egg button (mobile) */}
-          <button
-            onClick={() => { onOpenFakeAI?.(); setMobileOpen(false); }}
-            className="mt-3 mx-3 flex items-center gap-2 py-2.5 px-3 rounded-input font-mono text-ui-small uppercase tracking-wider text-gray-400 hover:text-green-500 transition-colors duration-200"
-          >
-            <Bot size={14} />
-            Ask AI
-          </button>
+
         </nav>
       </div>
     </header>
