@@ -193,7 +193,7 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
   /* ── Focus hidden input on open/idle ─────────────────── */
   useEffect(() => {
     if (isOpen && phase === "idle") {
-      const t = setTimeout(() => inputRef.current?.focus(), 350);
+      const t = setTimeout(() => inputRef.current?.focus(), 10);
       return () => clearTimeout(t);
     }
   }, [isOpen, phase]);
@@ -388,7 +388,7 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
     initial: { opacity: 0, y: 14 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -10 },
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
   };
 
   /* ══════════════════════════════════════════════════════
@@ -402,7 +402,7 @@ const FakeAIAssistant = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.15 }}
         >
           <Background />
 

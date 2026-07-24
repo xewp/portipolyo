@@ -135,13 +135,6 @@ function Navbar({ theme, onOpenFakeAI }) {
 
         <div className="flex items-center gap-2">
           <button
-            onClick={() => onOpenFakeAI?.()}
-            className="p-2 text-gray-400 hover:text-green-500 transition-colors duration-200"
-            aria-label="Ask AI"
-          >
-            <Bot size={18} />
-          </button>
-          <button
             onClick={theme.cycle}
             className="p-2 text-gray-400 hover:text-ink transition-colors duration-200"
             aria-label="Toggle theme"
@@ -188,7 +181,16 @@ function Navbar({ theme, onOpenFakeAI }) {
             })}
           </ul>
 
-
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenFakeAI?.();
+            }}
+            className="mt-4 flex items-center gap-2 py-2.5 px-3 font-mono text-ui-small uppercase tracking-wider text-gray-400 hover:text-green-500 transition-colors duration-200 w-full rounded-input"
+          >
+            <Bot size={16} className="opacity-80" />
+            Ask AI
+          </button>
         </nav>
       </div>
     </header>
