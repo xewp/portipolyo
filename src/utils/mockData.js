@@ -10,7 +10,7 @@ export const projectsData = [
   },
   {
     id: 2,
-    title: "Power Allure",
+    title: "Aura Select",
     description: "Full-stack booking platform with JWT session management, Cloudinary image uploads, real-time booking flow, and an admin dashboard for talent management.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "JWT", "Cloudinary"],
     image: "/projects/power-allure.png",
@@ -19,12 +19,12 @@ export const projectsData = [
   },
   {
     id: 3,
-    title: "Billings Dashboard",
+    title: "NovaSync",
     description: "Financial dashboard with Recharts visualizations, Leaflet geographical mapping of billing centers, and automated PDF/CSV report generation via jsPDF and PapaParse.",
     tech: ["React", "Supabase", "Recharts", "Leaflet", "Tailwind CSS", "jsPDF", "PapaParse"],
     image: "/projects/bildash.png",
     github: "",
-    live: "https://billing-dashboard-demo.vercel.app"
+    live: "https://novasync-tau.vercel.app/"
   },
   {
     id: 4,
