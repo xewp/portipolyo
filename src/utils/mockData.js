@@ -6,7 +6,7 @@ export const projectsData = [
     tech: ["React", "Node.js", "Express", "MongoDB", "Multiple LLMs", "Tailwind CSS", "Framer Motion", "React Query"],
     image: "/projects/aurapres.png",
     github: "",
-    live: ""
+    live: "https://storyforge-kappa-ten.vercel.app/auth"
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const projectsData = [
     tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "JWT", "Cloudinary"],
     image: "/projects/power-allure.png",
     github: "",
-    live: "https://powerallure-d1t7.onrender.com"
+    live: "https://aura-select.onrender.com"
   },
   {
     id: 3,
