@@ -6,7 +6,7 @@ export const projectsData = [
     tech: ["React", "Node.js", "Express", "MongoDB", "Multiple LLMs", "Tailwind CSS", "Framer Motion", "React Query"],
     image: "/projects/aurapres.png",
     github: "",
-    live: "https://storyforge-kappa-ten.vercel.app/auth"
+    live: "https://storyforge-kappa-ten.vercel.app"
   },
   {
     id: 2,
