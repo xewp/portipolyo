@@ -58,14 +58,14 @@ const About = () => {
             variants={fadeUp}
             className="font-serif text-long-body text-gray-500 leading-relaxed"
           >
-            Every project I build starts with a real-world problem. Whether implementing AES-256 client-side encryption for <span className="text-ink font-medium">Vault-X</span> or building complex real-time booking flows, I use AI pair-programming to tackle complex architectures, optimize database schemas, and debug edge cases at speed.
+            Every project I build originates from a concrete problem worth solving. By pairing full-stack architecture with AI-driven development workflows, I rapidly transform complex concepts into production-ready applications. From structuring scalable backend APIs and database schemas to crafting fluid, responsive frontend interactions, I focus on building systems that are both resilient and high-performing.
           </motion.p>
 
           <motion.p
             variants={fadeUp}
             className="font-serif text-long-body text-gray-500 leading-relaxed"
           >
-            Graduating soon and looking for a forward-thinking <span className="text-ink font-semibold">first developer role</span> where I can bring both my full-stack MERN expertise and my proficiency in maximizing AI productivity to build next-generation software.
+            Software development is evolving faster than ever, and I stay at the leading edge by continuously experimenting with emerging AI tools, refining agent architectures, and discovering new ways to streamline complex workflows. I am committed to exploring the full potential of <span className="text-ink font-medium">AI-augmented engineering</span>—pushing technical boundaries to see just how fast, intelligent, and impactful modern web software can become.
           </motion.p>
         </div>
       </motion.div>
