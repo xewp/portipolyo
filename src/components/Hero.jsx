@@ -113,7 +113,7 @@ const Hero = () => {
 
           {/* Resume: text link */}
           <a
-            href="/bautista-resume.pdf"
+            href="/bautista-kaizz-resume.pdf"
             download="Kaizz_Bautista_Resume.pdf"
             className="group flex items-center gap-1.5 font-mono text-ui-small text-gray-400 hover:text-ink transition-colors duration-200 no-underline"
           >
