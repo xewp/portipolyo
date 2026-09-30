@@ -15,15 +15,13 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-ink transition-colors duration-500">
-      {/* Fixed sidebar on desktop, sticky top bar on mobile */}
       <Navbar theme={theme} onOpenFakeAI={() => setIsFakeAIOpen(true)} />
 
       {/* Fake AI easter egg modal */}
       <FakeAIAssistant isOpen={isFakeAIOpen} onClose={() => setIsFakeAIOpen(false)} />
 
-      {/* Content shifts right on desktop to clear the sidebar */}
-      <div className="lg:pl-[14rem]">
-        <main>
+      <div className="page-content">
+        <main id="main">
           <Hero />
           <About />
           <Projects />

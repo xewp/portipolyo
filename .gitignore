@@ -24,3 +24,7 @@ Thumbs.db
 
 # Custom skills repo
 .claude/
+
+# Local deployment and editor output
+.vercel/
+*.tsbuildinfo

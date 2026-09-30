@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800" fill="none">
+  <rect width="640" height="800" fill="#D9D5CA"/>
+  <path d="M0 548H640V800H0V548Z" fill="#EAE6DC"/>
+  <path d="M640 0H362L640 278V0Z" fill="#2446EA"/>
+  <path d="M57 0V800M583 0V800M0 64H640M0 736H640" stroke="#151A1E" stroke-opacity=".13"/>
+  <circle cx="319" cy="305" r="123" fill="#C4BEB0"/>
+  <path d="M207 296C207 204 238 151 321 151C397 151 431 204 431 281C409 278 390 262 372 236C333 277 266 295 207 296Z" fill="#242A2E"/>
+  <path d="M259 396H379V463H259V396Z" fill="#C4BEB0"/>
+  <path d="M104 736V586C104 489 179 435 259 435L318 498L379 435C460 435 535 489 535 586V736H104Z" fill="#242A2E"/>
+  <path d="M259 435L318 498L273 544L222 448L259 435Z" fill="#F4F1E9"/>
+  <path d="M379 435L318 498L364 544L415 448L379 435Z" fill="#F4F1E9"/>
+  <path d="M319 498V736" stroke="#F4F1E9" stroke-opacity=".3"/>
+  <circle cx="317" cy="305" r="163" stroke="#2446EA" stroke-width="2"/>
+  <path d="M317 126V152M317 458V484M138 305H164M470 305H496" stroke="#2446EA" stroke-width="2"/>
+  <rect x="42" y="642" width="264" height="79" fill="#2446EA"/>
+  <text x="62" y="675" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12" letter-spacing="3">YOUR PORTRAIT HERE</text>
+  <text x="62" y="701" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12">A PLACEHOLDER FOR THE REAL YOU.</text>
+  <text x="42" y="769" fill="#242A2E" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">PROFILE / 01</text>
+  <path d="M537 757V775M542 757V775M549 757V775M558 757V775M562 757V775M569 757V775M578 757V775M582 757V775M588 757V775M597 757V775" stroke="#242A2E" stroke-width="2"/>
+</svg>
