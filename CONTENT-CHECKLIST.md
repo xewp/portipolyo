@@ -24,7 +24,7 @@ June is treated as June 2026, following the May 2026 internship end date. The in
 
 ## Case studies
 
-Storyforge AI, Aura Select, NovaSync, Comfort Cards, and Vault-X each include an overview, challenge, approach, and outcome in data/projects.ts and CASE-STUDIES.md. Existing project descriptions and screenshots remain. Project outcomes describe delivered features rather than invented business metrics.
+Storyforge AI, Velora, NovaSync, Comfort Cards, and Vault-X each include an overview, challenge, approach, and outcome in data/projects.ts and CASE-STUDIES.md. Existing project descriptions and screenshots remain. Project outcomes describe delivered features rather than invented business metrics.
 
 ## Contact delivery
 

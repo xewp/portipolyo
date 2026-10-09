@@ -2,8 +2,12 @@ export type Project = {
   id: number;
   slug: string;
   title: string;
+  displayName?: string;
+  highlightBadge?: string;
+  tags?: string[];
   role: string;
   description: string;
+  shortDesc?: string;
   tech: string[];
   image: string;
   imageSrcSet?: string;
@@ -25,8 +29,12 @@ export const projects: Project[] = [
     "id": 1,
     "slug": "storyforge-ai",
     "title": "Storyforge AI",
+    "displayName": "Storyforge — Content Engine",
+    "highlightBadge": "#1 AI CONTENT ENGINE",
+    "tags": ["MULTI-LLM PIPELINE", "PERSISTENT WORKSPACE"],
     "role": "Full Stack Developer",
     "description": "Full-stack AI content workspace with Gemini, Groq, Mistral, and OpenRouter integrations. Turns a topic brief into research, strategy, outlines, scripts, and supporting content with persistent projects and export tools.",
+    "shortDesc": "An AI content workspace powered by Gemini, Groq & Mistral to research, outline, and produce ready-to-publish assets.",
     "tech": [
       "React",
       "Node.js",
@@ -52,10 +60,14 @@ export const projects: Project[] = [
   },
   {
     "id": 2,
-    "slug": "aura-select",
-    "title": "Aura Select",
+    "slug": "velora",
+    "title": "Velora",
+    "displayName": "Velora — Talent & Events",
+    "highlightBadge": "#1 TALENT & EVENTS",
+    "tags": ["JWT SESSIONS & OTP", "CLOUDINARY GALLERIES"],
     "role": "Full Stack Developer",
-    "description": "Full-stack talent-booking platform with JWT sessions, email verification, Cloudinary galleries, API-backed booking requests, and dedicated customer and administration interfaces.",
+    "description": "Full-stack talent and events platform with a redesigned dark UI, JWT sessions, email verification, Cloudinary galleries, API-backed booking requests, and dedicated customer and administration interfaces.",
+    "shortDesc": "Full-stack talent booking platform with redesigned dark UI, customer request flows, and back-office management.",
     "tech": [
       "React",
       "Node.js",
@@ -67,22 +79,26 @@ export const projects: Project[] = [
     ],
     "image": "/projects/power-allure.png",
     "imageSrcSet": "/projects/power-allure-640.webp 640w, /projects/power-allure-1280.webp 1024w",
-    "imageAlt": "Aura Select booking platform interface",
+    "imageAlt": "Velora talent and events platform interface",
     "github": "",
-    "live": "https://aura-select.onrender.com",
+    "live": "https://velora-lw4m.onrender.com",
     "caseStudy": {
-      "overview": "I built Aura Select as a full-stack talent-booking platform with separate customer and administration interfaces. Customers can browse talent profiles, save favorites, submit booking requests, and review their booking history. Administrators manage talent galleries, customer approvals, booking statuses, and operational settings through a dedicated dashboard.",
+      "overview": "I built Velora as a full-stack talent and events platform with separate customer and administration interfaces. Customers can browse talent profiles, save favorites, submit booking requests, and review their booking history. Administrators manage talent galleries, customer approvals, booking statuses, and operational settings through a dedicated dashboard.",
       "challenge": "A booking platform has to support two different workflows: customers need a clear path from discovering talent to submitting a request, while staff need control over profiles, availability-related scheduling, and request status. The application also needs to distinguish verified customers, administrators, and superadministrators so each person can access the appropriate tools.",
       "approach": "I developed the React customer and admin applications, the Express API, and MongoDB models with Mongoose. I implemented JWT session management, email OTP verification, and an account-approval flow before customers can proceed. Booking requests are stored through the API and connected to customer history, admin status controls, and a booking calendar. Cloudinary handles uploaded talent images and galleries. The administration layer includes model approval, settings, audit logs, and role-specific access, while email notifications support account and booking-related events.",
-      "outcome": "Aura Select brings talent discovery, customer verification, booking requests, and back-office management into one system. Customers have an authenticated request-and-history workflow, and administrators have the tools to manage profiles and the booking lifecycle. My full-stack contribution covers both React interfaces, the API, database models, authentication, uploads, and administrative workflows."
+      "outcome": "Velora brings talent discovery, customer verification, booking requests, and back-office management into one system. Customers have an authenticated request-and-history workflow, and administrators have the tools to manage profiles and the booking lifecycle. My full-stack contribution covers both React interfaces, the API, database models, authentication, uploads, and administrative workflows."
     }
   },
   {
     "id": 3,
     "slug": "novasync",
     "title": "NovaSync",
+    "displayName": "NovaSync — Financial Analytics",
+    "highlightBadge": "#1 FINANCIAL DASHBOARD",
+    "tags": ["RECHARTS & LEAFLET MAPS", "AUTOMATED EXPORTS"],
     "role": "Full Stack Developer",
     "description": "Full-stack billing platform with Supabase authentication and data, Recharts analytics, Leaflet branch mapping, and PDF/CSV report exports through jsPDF and PapaParse.",
+    "shortDesc": "Real-time billing telemetry dashboard with geographic center mapping, visual charts, and PDF/CSV export.",
     "tech": [
       "React",
       "Supabase",
@@ -108,8 +124,12 @@ export const projects: Project[] = [
     "id": 4,
     "slug": "comfort-cards",
     "title": "Comfort Cards",
+    "displayName": "Comfort Cards — Greeting App",
+    "highlightBadge": "#1 INTERACTIVE UI",
+    "tags": ["FRAMER MOTION SWIPE", "CANVAS-CONFETTI"],
     "role": "Full Stack Developer",
     "description": "Digital greeting card app with swipe-based navigation, canvas confetti celebrations, and a mobile-first responsive layout built entirely with Framer Motion.",
+    "shortDesc": "Digital greeting cards featuring gesture-driven card deck navigation, particle celebrations, and sound.",
     "tech": [
       "React",
       "Vite",
@@ -134,8 +154,12 @@ export const projects: Project[] = [
     "id": 5,
     "slug": "vault-x",
     "title": "Vault-X",
+    "displayName": "Vault-X — Secret Manager",
+    "highlightBadge": "#1 CLIENT-SIDE SECURITY",
+    "tags": ["CLIENT-SIDE AES-256", "WEB CRYPTO API"],
     "role": "Full Stack Developer",
     "description": "MERN secret manager with client-side AES-256 encryption and Web Crypto password generation. Plaintext secrets never touch the backend — all encryption happens in the browser.",
+    "shortDesc": "Zero-knowledge MERN secret manager where plaintext never leaves the browser with in-browser encryption.",
     "tech": [
       "React",
       "Node.js",

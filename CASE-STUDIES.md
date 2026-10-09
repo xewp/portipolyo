@@ -2,7 +2,7 @@
 
 All project roles: **Full Stack Developer**. Project dates are intentionally omitted.
 
-These narratives describe the documented implementation. Storyforge AI, Aura Select, and NovaSync were also checked against the local source code; Comfort Cards and Vault-X use the existing project descriptions. No adoption, revenue, performance, or business-impact metrics are invented.
+These narratives describe the documented implementation. Storyforge AI, Velora, and NovaSync were also checked against the local source code; Comfort Cards and Vault-X use the existing project descriptions. No adoption, revenue, performance, or business-impact metrics are invented.
 
 ## Storyforge AI
 
@@ -28,7 +28,7 @@ The result is a connected content-production workspace rather than a collection 
 
 [View live project](https://storyforge-kappa-ten.vercel.app)
 
-## Aura Select
+## Velora
 
 **Role:** Full Stack Developer
 
@@ -36,7 +36,7 @@ The result is a connected content-production workspace rather than a collection 
 
 ### Overview
 
-I built Aura Select as a full-stack talent-booking platform with separate customer and administration interfaces. Customers can browse talent profiles, save favorites, submit booking requests, and review their booking history. Administrators manage talent galleries, customer approvals, booking statuses, and operational settings through a dedicated dashboard.
+I built Velora as a full-stack talent and events platform with separate customer and administration interfaces. Customers can browse talent profiles, save favorites, submit booking requests, and review their booking history. Administrators manage talent galleries, customer approvals, booking statuses, and operational settings through a dedicated dashboard.
 
 ### Challenge
 
@@ -48,9 +48,9 @@ I developed the React customer and admin applications, the Express API, and Mong
 
 ### Outcome
 
-Aura Select brings talent discovery, customer verification, booking requests, and back-office management into one system. Customers have an authenticated request-and-history workflow, and administrators have the tools to manage profiles and the booking lifecycle. My full-stack contribution covers both React interfaces, the API, database models, authentication, uploads, and administrative workflows.
+Velora brings talent discovery, customer verification, booking requests, and back-office management into one system. Customers have an authenticated request-and-history workflow, and administrators have the tools to manage profiles and the booking lifecycle. My full-stack contribution covers both React interfaces, the API, database models, authentication, uploads, and administrative workflows.
 
-[View live project](https://aura-select.onrender.com)
+[View live project](https://velora-lw4m.onrender.com)
 
 ## NovaSync
 
